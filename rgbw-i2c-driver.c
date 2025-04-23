@@ -1,5 +1,6 @@
 #include "rgbw-i2c-driver.h"
 #include <time.h>
+#include <unistd.h>
 
 i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
 {
@@ -10,7 +11,7 @@ i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
   if (error != I2CHW_SUCCESS)
     return error;
 
-  i2chw_error_t error = I2CHW_Init(bus);
+  error = I2CHW_Init(bus);
   if (error != I2CHW_SUCCESS)
     return error;
 
@@ -19,7 +20,7 @@ i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
   dev->addr_width = I2CHW_ADDR_WIDTH_7BIT;
 
   uint8_t reset_cfg[2] = {RESET_REG, 0b11100000};
-  i2chw_error_t error = I2CHW_WriteSync(dev, reset_cfg, sizeof(reset_cfg));
+  error = I2CHW_WriteSync(dev, reset_cfg, sizeof(reset_cfg));
   if (error != I2CHW_SUCCESS)
     return error;
 
@@ -40,7 +41,7 @@ i2chw_error_t rgbw_driver_channel_switch(i2chw_dev_t *dev, uint8_t channel, bool
   // Reading current state of 4-th register
   uint8_t enable_reg_state;
   uint8_t data[2] = {ENABLE_REG};
-  i2chw_error_t error = I2CHW_WriteReadSync(&dev, data[0], sizeof(data[0]), &enable_reg_state, sizeof(enable_reg_state));
+  i2chw_error_t error = I2CHW_WriteReadSync(dev, data, sizeof(data[0]), &enable_reg_state, sizeof(enable_reg_state));
   if (error != I2CHW_SUCCESS)
     return error;
 
@@ -72,7 +73,7 @@ i2chw_error_t rgbw_driver_set_color(i2chw_dev_t *dev, uint8_t r, uint8_t g, uint
 
   for (uint8_t i = 0; i < 4; i++)
   {
-    uint8_t frame = {data[2 * i], data[2 * i + 1]};
+    uint8_t frame[] = {data[2 * i], data[2 * i + 1]};
     i2chw_error_t error = I2CHW_WriteSync(dev, frame, sizeof(frame));
     if (error != I2CHW_SUCCESS)
       return error;
