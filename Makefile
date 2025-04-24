@@ -1,20 +1,19 @@
 CC=gcc
-CFLAGS=-c -Wall -Wextra --std=c99 -pedantic
-
+CFLAGS=-c -Wall -Wextra --std=c99 -pedantic -I./driver -I./i2chw
 
 all: test
 
 test: rgbw-i2c-driver.o i2chw-test.o test.o
 	$(CC) test.o rgbw-i2c-driver.o i2chw-test.o -o test
 
-rgbw-i2c-driver.o: rgbw-i2c-driver.c
-	$(CC) $(CFLAGS) rgbw-i2c-driver.c
+rgbw-i2c-driver.o: driver/rgbw-i2c-driver.c
+	$(CC) $(CFLAGS) driver/rgbw-i2c-driver.c
 
-i2chw-test.o: i2chw-test.c
-	$(CC) $(CFLAGS) i2chw-test.c
+i2chw-test.o: i2chw/i2chw-test.c
+	$(CC) $(CFLAGS) i2chw/i2chw-test.c
 
-test.o: test.c
-	$(CC) $(CFLAGS) test.c
+test.o: tests/test.c
+	$(CC) $(CFLAGS) tests/test.c
 
 run: test
 	./test > result.log
