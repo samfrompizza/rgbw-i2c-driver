@@ -6,7 +6,7 @@
 i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
 {
   i2chw_cfg_t cfg = {
-      .bus_freq = I2CHW_400_KHZ,          // Because of min clock period = 2.5us
+      .bus_freq = I2CHW_400_KHZ, // Because of min clock period = 2.5us
       .dir_mode = I2CHW_MASTER_MODE};
   i2chw_error_t error = I2CHW_Configure(bus, &cfg);
   if (error != I2CHW_SUCCESS)
