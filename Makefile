@@ -16,7 +16,8 @@ test.o: tests/test.c
 	$(CC) $(CFLAGS) tests/test.c
 
 run: test
-	./test > result.log
+	./test > run.out
+	diff run.out tests/expected.out || echo "OUTPUT IS NOT EQUAL TO EXPECTED"
 
 clean:
-	rm -rf *.o test
+	rm -rf *.o test run.out
