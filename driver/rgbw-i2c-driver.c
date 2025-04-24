@@ -2,9 +2,13 @@
 
 #include <time.h>
 #include <unistd.h>
+#include <assert.h>
 
 i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
 {
+  assert(dev != NULL);
+  assert(bus >= I2CHW_BUS_I2C0 && bus <= I2CHW_BUS_I2C3);
+
   i2chw_cfg_t cfg = {
       .bus_freq = I2CHW_400_KHZ, // Because of min clock period = 2.5us
       .dir_mode = I2CHW_MASTER_MODE};
@@ -26,12 +30,13 @@ i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
     return error;
 
   usleep(RESET_DELAY_MCS);
-
   return I2CHW_SUCCESS;
 }
 
 i2chw_error_t rgbw_driver_set_channel_brightness(i2chw_dev_t *dev, uint8_t channel, uint8_t brightness)
 {
+  assert(channel >= 1 && channel <= 4);
+
   uint8_t reg_addr = IOUT_D1_REG + (channel - 1);
   uint8_t data[2] = {reg_addr, brightness};
   return I2CHW_WriteSync(dev, data, sizeof(data));
@@ -39,6 +44,9 @@ i2chw_error_t rgbw_driver_set_channel_brightness(i2chw_dev_t *dev, uint8_t chann
 
 i2chw_error_t rgbw_driver_channel_switch(i2chw_dev_t *dev, uint8_t channel, bool state)
 {
+  assert(dev);
+  assert(channel >= 1 && channel <= 4);
+
   // Reading current state of 4-th register
   uint8_t enable_reg_state;
   uint8_t data[2] = {ENABLE_REG};
@@ -57,6 +65,8 @@ i2chw_error_t rgbw_driver_channel_switch(i2chw_dev_t *dev, uint8_t channel, bool
 
 i2chw_error_t rgbw_driver_all_channels_switch(i2chw_dev_t *dev, bool state)
 {
+  assert(dev);
+
   uint8_t data[2] = {ENABLE_REG, 0x00};
   if (state)
     data[1] = 0x55;
@@ -66,6 +76,8 @@ i2chw_error_t rgbw_driver_all_channels_switch(i2chw_dev_t *dev, bool state)
 
 i2chw_error_t rgbw_driver_set_color(i2chw_dev_t *dev, uint8_t r, uint8_t g, uint8_t b, uint8_t w)
 {
+  assert(dev);
+
   uint8_t data[8] = {
       IOUT_D1_REG, r,
       IOUT_D2_REG, g,

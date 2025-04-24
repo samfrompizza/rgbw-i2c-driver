@@ -3,35 +3,35 @@ Bus frequency: 2
 Direction mode: 1
 
 I2C bus initialized. Bus number: 0.
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 0, data: 224
 
-1 bites of data transmitted to 48.
+1 bytes of data transmitted to 48.
 Reg: 4, data: 0
-1 bites of data recieved from 48.
+1 bytes of data recieved from 48.
 Reg: 0, data: 1
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 4, data: 2
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 7, data: 168
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 4, data: 85
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 6, data: 17
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 7, data: 28
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 8, data: 49
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 9, data: 251
 
-2 bites of data transmitted to 48.
+2 bytes of data transmitted to 48.
 Reg: 4, data: 0
 

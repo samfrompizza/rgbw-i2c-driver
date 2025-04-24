@@ -17,7 +17,7 @@ test.o: tests/test.c
 
 run: test
 	./test > run.out
-	diff run.out tests/expected.out || echo "OUTPUT IS NOT EQUAL TO EXPECTED"
+	diff run.out tests/expected.out
 
 clean:
 	rm -rf *.o test run.out
