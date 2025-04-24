@@ -1,4 +1,5 @@
 #include "rgbw-i2c-driver.h"
+
 #include <time.h>
 #include <unistd.h>
 
@@ -19,7 +20,7 @@ i2chw_error_t rgbw_driver_init(i2chw_dev_t *dev, i2chw_bus_t bus)
   dev->dev_addr = RGBW_DRIVER_ADDR;
   dev->addr_width = I2CHW_ADDR_WIDTH_7BIT;
 
-  uint8_t reset_cfg[2] = {RESET_REG, 0b11100000};
+  uint8_t reset_cfg[2] = {RESET_REG, 0xE0};
   error = I2CHW_WriteSync(dev, reset_cfg, sizeof(reset_cfg));
   if (error != I2CHW_SUCCESS)
     return error;
@@ -56,9 +57,9 @@ i2chw_error_t rgbw_driver_channel_switch(i2chw_dev_t *dev, uint8_t channel, bool
 
 i2chw_error_t rgbw_driver_all_channels_switch(i2chw_dev_t *dev, bool state)
 {
-  uint8_t data[2] = {ENABLE_REG, 0b00000000};
+  uint8_t data[2] = {ENABLE_REG, 0x00};
   if (state)
-    data[1] = 0b01010101;
+    data[1] = 0x55;
 
   return I2CHW_WriteSync(dev, data, sizeof(data));
 }

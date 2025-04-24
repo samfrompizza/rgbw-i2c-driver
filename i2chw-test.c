@@ -1,4 +1,5 @@
 #include "i2chw.h"
+
 #include <stdio.h>
 
 i2chw_error_t I2CHW_Init(const i2chw_bus_t bus_num)
