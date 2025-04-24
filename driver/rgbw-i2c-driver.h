@@ -1,3 +1,6 @@
+#ifndef RGBW_I2C_DRIVER
+#define RGBW_I2C_DRIVER
+
 #include "i2chw.h"
 
 #define RGBW_DRIVER_ADDR 0x30
@@ -83,3 +86,5 @@ i2chw_error_t rgbw_driver_all_channels_switch(i2chw_dev_t *dev, bool state);
  *         I2CHW_ERR_HW - the bus has hardware issues
  */
 i2chw_error_t rgbw_driver_set_color(i2chw_dev_t *dev, uint8_t r, uint8_t g, uint8_t b, uint8_t w);
+
+#endif
